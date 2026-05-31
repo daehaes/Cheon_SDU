@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>소프트웨어코딩의 기초 9주차 과제</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#5D4037;--navy2:#795548;--gold:#c8961f;--gold2:#e8b84b;--gold3:#f5d98a;--bg:#ffffff;--bg2:#f7f6f2;--text:#1a1a1a;--text2:#555;--border:rgba(0,0,0,0.1);}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);max-width:960px;margin:0 auto;}
+nav{background:var(--navy);display:flex;align-items:stretch;padding:0 1.5rem;position:sticky;top:0;z-index:20;overflow-x:auto;}
+.nav-brand{font-family:'DM Mono',monospace;color:var(--gold2);font-size:11px;letter-spacing:3px;display:flex;align-items:center;padding-right:1.25rem;margin-right:1.25rem;border-right:0.5px solid rgba(255,255,255,0.12);white-space:nowrap;flex-shrink:0;}
+nav button{background:none;border:none;color:rgba(255,255,255,0.6);font-size:12px;padding:0 0.9rem;cursor:pointer;border-bottom:2px solid transparent;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:color .2s;height:48px;flex-shrink:0;}
+nav button:hover{color:rgba(255,255,255,0.9);}
+nav button.on{color:var(--gold2);border-bottom-color:var(--gold);}
+.hero{background:var(--navy);padding:3rem 2rem 0;}
+.hero-top{display:grid;grid-template-columns:130px 1fr;gap:2rem;align-items:start;padding-bottom:2rem;}
+.av{width:120px;height:120px;border-radius:50%;border:2px solid var(--gold);background:#F5F5DC;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:24px;color:var(--navy);flex-shrink:0;}
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;color:var(--gold);margin-bottom:6px;}
+h1{font-family:'Playfair Display',serif;font-size:28px;color:#fff;font-weight:600;line-height:1.2;margin-bottom:8px;}
+.pos{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;}
+.pos b{color:rgba(255,255,255,0.9);font-weight:500;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.tag{font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid rgba(200,150,31,0.45);color:var(--gold3);font-family:'DM Mono',monospace;}
+.hero-contact{display:flex;flex-wrap:wrap;gap:4px 20px;margin-top:10px;}
+.hero-contact span{font-size:11px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;}
+.stats-bar{background:var(--navy2);border-top:0.5px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:repeat(4,1fr);text-align:center;}
+.stat{padding:1rem 0.5rem;border-right:0.5px solid rgba(255,255,255,0.08);}
+.stat:last-child{border-right:none;}
+.stat .num{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold2);display:block;}
+.stat .lbl{font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:1px;font-family:'DM Mono',monospace;text-transform:uppercase;}
+.tabs{display:flex;border-bottom:1px solid var(--border);padding:0 1.5rem;background:var(--bg2);overflow-x:auto;}
+.tb{background:none;border:none;font-size:13px;padding:0.85rem 1rem;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:color .2s;}
+.tb:hover{color:var(--text);}
+.tb.on{color:var(--navy);border-bottom-color:var(--gold);font-weight:500;}
+.pnl{display:none;padding:2rem 1.5rem;}
+.pnl.on{display:block;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;margin-top:2rem;}
+.sh:first-child{margin-top:0;}
+.sh h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--text);white-space:nowrap;}
+.sh-line{flex:1;height:0.5px;background:var(--border);}
+.sh-badge{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:3px;background:var(--bg2);color:var(--text2);border:0.5px solid var(--border);white-space:nowrap;}
+.hl{border-left:3px solid var(--gold);background:var(--bg2);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
+.hl .hl-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+.hl p{font-size:14px;color:var(--text);line-height:1.9;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.card{background:var(--bg2);border-radius:12px;border:0.5px solid var(--border);padding:1.25rem;}
+.card-title{font-size:10px;letter-spacing:1.5px;color:var(--text2);margin-bottom:12px;font-family:'DM Mono',monospace;text-transform:uppercase;}
+.edu-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid var(--border);}
+.edu-row:last-child{border-bottom:none;padding-bottom:0;}
+.dot{width:9px;height:9px;border-radius:50%;background:#F5F5DC;margin-top:4px;flex-shrink:0;border:1px solid var(--navy2);}
+.dot.sm{background:#F5F5DC;}
+.edu-deg{font-size:13px;font-weight:500;}
+.edu-sub{font-size:12px;color:var(--text2);}
+.edu-yr{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;}
+.tl-item{display:grid;grid-template-columns:125px 1fr;gap:16px;padding:12px 0;border-bottom:0.5px solid var(--border);align-items:start;}
+.tl-item:last-child{border-bottom:none;}
+.tl-yr{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);padding-top:3px;line-height:1.5;}
+.tl-role{font-size:14px;font-weight:500;margin-bottom:2px;}
+.tl-org{font-size:12px;color:var(--text2);line-height:1.6;}
+.tl-tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:3px;font-family:'DM Mono',monospace;margin-top:5px;}
+.fbar{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
+.fb{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.fb:hover{border-color:var(--navy);color:var(--navy);}
+.fb.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+.pub{padding:14px 0;border-bottom:0.5px solid var(--border);}
+.pub:last-child{border-bottom:none;}
+.pub-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.pub-year{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);white-space:nowrap;padding-top:2px;flex-shrink:0;}
+.pub-bads{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
+.bd{font-size:10px;padding:2px 7px;border-radius:3px;font-family:'DM Mono',monospace;font-weight:500;}
+.bd.sc{background:#EFEBE9;color:#5D4037;}
+.bd.sp{background:#EAF3DE;color:#3B6D11;}
+.bd.kc{background:#FAEEDA;color:#854F0B;}
+.bd.m1{background:#EEEDFE;color:#534AB7;}
+.bd.mc{background:#FBEAF0;color:#993556;}
+.bd.if{background:var(--bg2);color:var(--text2);border:0.5px solid var(--border);}
+.pub-title{font-size:13px;font-weight:500;line-height:1.55;margin-bottom:3px;}
+.pub-venue{font-size:12px;color:var(--text2);}
+.proj{background:var(--bg2);border-radius:12px;border:0.5px solid var(--border);padding:1.25rem;margin-bottom:0.75rem;}
+.proj-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.proj-title{font-size:13px;font-weight:500;line-height:1.55;}
+.proj-budget{font-family:'DM Mono',monospace;font-size:13px;color:var(--gold);white-space:nowrap;flex-shrink:0;}
+.proj-meta{font-size:12px;color:var(--text2);line-height:1.7;}
+.proj-role{display:inline-block;margin-top:7px;font-size:10px;padding:2px 8px;border-radius:3px;font-family:'DM Mono',monospace;}
+.proj-status{display:inline-block;margin-left:6px;font-size:10px;padding:2px 8px;border-radius:3px;font-family:'DM Mono',monospace;background:var(--bg);border:0.5px solid var(--border);color:var(--text2);}
+.r-pi{background:#EFEBE9;color:#5D4037;}
+.r-lr{background:#EAF3DE;color:#3B6D11;}
+.r-co{background:#EEEDFE;color:#534AB7;}
+.pat{display:grid;grid-template-columns:80px 1fr;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--border);align-items:start;}
+.pat:last-child{border-bottom:none;}
+.pat-flag{font-family:'DM Mono',monospace;font-size:10px;padding:3px 7px;border-radius:3px;text-align:center;}
+.pat-kr{background:#EFEBE9;color:#5D4037;}
+.pat-us{background:#FAEEDA;color:#854F0B;}
+.pat-title{font-size:13px;font-weight:500;line-height:1.5;margin-bottom:3px;}
+.pat-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);}
+.book{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid var(--border);}
+.book:last-child{border-bottom:none;}
+.book-spine{width:44px;height:60px;border-radius:3px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:0.5px solid rgba(200,150,31,0.4);}
+.book-spine span{font-family:'DM Mono',monospace;font-size:8px;color:var(--gold2);writing-mode:vertical-lr;letter-spacing:1px;}
+.bt{font-size:13px;font-weight:500;line-height:1.5;margin-bottom:3px;}
+.bp{font-size:12px;color:var(--text2);}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:8px;}
+.cc{background:var(--bg2);border:0.5px solid var(--border);border-radius:8px;padding:10px 13px;}
+.cn{font-size:12px;font-weight:500;margin-bottom:2px;}
+.cd{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;}
+.conf{display:grid;grid-template-columns:90px 1fr;gap:14px;padding:12px 0;border-bottom:0.5px solid var(--border);align-items:start;}
+.conf:last-child{border-bottom:none;}
+.conf-yr{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);line-height:1.6;}
+.conf-loc{display:inline-block;font-size:10px;padding:2px 7px;border-radius:3px;background:var(--bg2);border:0.5px solid var(--border);color:var(--text2);font-family:'DM Mono',monospace;margin-top:4px;}
+.conf-title{font-size:13px;font-weight:500;line-height:1.55;margin-bottom:2px;}
+.conf-event{font-size:12px;color:var(--text2);}
+.act{display:grid;grid-template-columns:70px 1fr;gap:14px;padding:11px 0;border-bottom:0.5px solid var(--border);align-items:start;}
+.act:last-child{border-bottom:none;}
+.act-yr{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);}
+.act-title{font-size:13px;font-weight:500;margin-bottom:2px;line-height:1.5;}
+.act-org{font-size:12px;color:var(--text2);}
+@media(max-width:580px){.hero-top{grid-template-columns:1fr;}.two-col{grid-template-columns:1fr;}.stats-bar{grid-template-columns:repeat(2,1fr);}.tl-item{grid-template-columns:1fr;}.tl-yr{padding-top:0;}}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-brand"> · 소프트웨어코딩</div>
+  <button class="on" onclick="go('about')">약력</button>
+  <button onclick="go('pubs')">이력서</button>
+  <button onclick="go('projects')">연구 분야</button>
+  <button onclick="go('ip')">자기 소개서</button>
+  <button onclick="go('activities')">포트폴리오</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="av">Cheon</div>
+    <div>
+      <div class="eyebrow">학습자· 언어정보 융합 연구가 · 데이터 어노테이터</div>
+      <h1>천금배</h1>
+      <div class="pos">
+        <b>연구분야</b> — 영어학 &amp; AI 소프트웨공학,<br> SDU<br>
+        <span style="font-size:12px;opacity:0.8;">Seoul Digital University &nbsp;|&nbsp; Student</span>
+      </div>
+      <div class="tags">
+        <span class="tag">AI Software Engineering</span>
+        <span class="tag">English</span>
+        <span class="tag">Education</span>
+        <span class="tag">English Education</span>
+        <span class="tag">TESOL</span>
+        <span class="tag">Data Annotation</span>
+      </div>
+      </div>
+  </div>
+  <div class="stats-bar">
+      <div class="stat"><span class="num">1</span><span class="lbl">Report</span></div>
+       <div class="stat"><span class="num">1</span><span class="lbl">MA.Degree</span></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tb on" onclick="go('about')">About &amp; Career</button>
+  <button class="tb" onclick="go('pubs')">Publications</button>
+  <button class="tb" onclick="go('projects')">Research Projects</button>
+  <button class="tb" onclick="go('ip')">Patents, Books &amp; Certs</button>
+  <button class="tb" onclick="go('activities')">Academic Activities</button>
+</div>
+
+<div id="pnl-about" class="pnl on">
+  <div class="hl"><div class="hl-label">Research Statement</div><p>Mr. Cheon is a student studies English, AI Software Engineering at the Seoul Digital University.</p></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Education</div>
+      <div class="edu-row"><div class="dot"></div><div><div class="edu-deg">M.Ed — English Education</div><div class="edu-sub">HS University</div><div class="edu-yr">2014</div></div></div>
+                  <div class="edu-row"><div class="dot sm"></div><div><div class="edu-deg">B.Ed. — Software Engineering</div><div class="edu-sub">KNE University</div><div class="edu-yr">1989</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Report</div>
+      <div style="font-size:13px;font-weight:500;line-height:1.7;margin-bottom:10px;">A Study of Teaching-Learning Strategy for the Development of Students` Listening Comprehension in Elementary English Education</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.8;"></div>
+      <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid var(--border);display:flex;gap:20px;">
+        <div><div style="font-size:12px;font-family:'DM Mono',monospace;margin-top:2px;"> https://kiss.kstudy.com/</div></div></div>
+  </div>
+  <div class="sh"><h2>Job Experience</h2><div class="sh-line"></div><div class="sh-badge">2012 – present</div></div>
+  <div>
+    <div class="tl-item"><div class="tl-yr">2025.– present</div><div><div class="tl-role">Data Annotator</div><div class="tl-org">Data Inspection, QA Set &amp; Check<br>S. Com. (Distance Work)</div><div class="tl-org" style="margin-top:3px;"><span class="tl-tag" style="background:#EFEBE9;color:#5D4037;">Gig Worker</span></div></div>
+    <div class="tl-item"><div class="tl-yr">2024.08 – 2025.02</div><div><div class="tl-role">Teacher — E.S. in Suwon</div><div class="tl-org" style="margin-top:3px;">Eng. &amp; Mus.</div><span class="tl-tag" style="background:#EAF3DE;color:#3B6D11;">Part-time</span></div></div>
+      </div>
+</div>
+
+<div id="pnl-pubs" class="pnl">
+  <div class="hl"><div class="hl-label">Resume</div><p></p></div> 
+
+<div id="pnl-projects" class="pnl">
+  <div class="hl"><div class="hl-label">Research Field</div><p>English</p></div>
+  <div class="sh"><h2>Ongoing Projects</h2><div class="sh-line"></div></div>
+  <div class="proj"><div class="proj-head"><div class="proj-title">Studying English<br></div>
+  <div class="proj"><div class="proj-head"><div class="proj-title">Studying AI Software Engineering</div>
+</div>
+
+<div id="pnl-ip" class="pnl">
+  <div class="sh"><h2>Personal Statement</h2></div>
+  <div>
+  Mr. Cheon interests in AI Applying at Education, Teaching, Reading Comprehension, etc. 
+  </div>
+</div>
+
+<div id="pnl-activities" class="pnl">
+  <div class="hl"><div class="hl-label">Media Edit</div><p>Mr. Cheon has few performances of short clip of cosmetics, foods, and so on. </p></div>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pnl-'+id).classList.add('on');
+  const map={about:0,pubs:1,projects:2,ip:3,activities:4};
+  if(map[id]!==undefined){
+    document.querySelectorAll('nav button')[map[id]].classList.add('on');
+    document.querySelectorAll('.tb')[map[id]].classList.add('on');
+  }
+}
+function fp(t,btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pub').forEach(p=>{
+    if(t==='all'){p.style.display='';return;}
+    p.style.display=p.dataset.t.includes(t)?'':'none';
+  });
+}
+</script>
+</body>
+</html>
